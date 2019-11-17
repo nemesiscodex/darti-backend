@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from datetime import datetime
+from decimal import Decimal
 from enum import Enum
 from typing import Type
 
@@ -52,13 +53,13 @@ class Sensor:
 
 @dataclass
 class WeatherInfo:
-    wind_direction: float
-    wind_velocity: float
-    rainfall: float
-    interior_temperature: float
-    exterior_temperature: float
-    humidity: float
-    atmospheric_pressure: float
+    wind_direction: Decimal
+    wind_velocity: Decimal
+    rainfall: Decimal
+    interior_temperature: Decimal
+    exterior_temperature: Decimal
+    humidity: Decimal
+    atmospheric_pressure: Decimal
 
 
 @dataclass

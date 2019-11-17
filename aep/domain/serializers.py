@@ -2,7 +2,7 @@
 import dataclasses
 import json
 from datetime import datetime
-from decimal import Decimal
+from decimal import Decimal, getcontext
 from enum import Enum
 
 from aep.domain.models import Area, Location, AreaType, Sensor, SensorType, Reading, WeatherInfo, Activation
@@ -15,7 +15,7 @@ class EnhancedJSONEncoder(json.JSONEncoder):
         elif isinstance(o, Enum):
             return o.name
         elif isinstance(o, Decimal):
-            return str(o)
+            return format(o, '.4f')
         elif isinstance(o, datetime):
             return o.isoformat()
         return super().default(o)
