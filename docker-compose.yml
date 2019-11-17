@@ -1,0 +1,15 @@
+version: "3.0"
+services:
+  postgres:
+    image: mdillon/postgis:11-alpine
+    environment:
+      - POSTGRES_PASSWORD=aep
+      - POSTGRES_USER=aep
+      - POSTGRES_DB=aep
+    restart: always
+    ports:
+      - 5432:5432
+    volumes:
+      - postgresdb:/var/lib/postgresql/data
+volumes:
+  postgresdb:

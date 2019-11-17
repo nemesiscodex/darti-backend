@@ -1,0 +1,9 @@
+aiohttp[speedups] # framework
+asyncpg # postgres async
+orjson # json serializer
+dependency_injector # dependency injection
+
+# tests
+pytest
+pytest-mock
+pytest-asyncio
