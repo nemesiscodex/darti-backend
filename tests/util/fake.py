@@ -1,7 +1,7 @@
 from datetime import datetime
 from random import Random
 
-from domain.models import Location, Area, AreaType, Sensor, SensorType, Reading, WeatherInfo, Activation
+from aep.domain.models import Location, Area, AreaType, Sensor, SensorType, Reading, WeatherInfo, Activation
 
 
 def fake_location():

@@ -1,4 +1,4 @@
-from domain.models import AreaType
+from aep.domain.models import AreaType
 
 DEFAULT_PAGE_SIZE = 100
 MAX_PAGE_SIZE = 500

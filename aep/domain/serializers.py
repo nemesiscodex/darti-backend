@@ -5,7 +5,7 @@ from datetime import datetime
 from decimal import Decimal
 from enum import Enum
 
-from domain.models import Area, Location, AreaType, Sensor, SensorType, Reading, WeatherInfo, Activation
+from aep.domain.models import Area, Location, AreaType, Sensor, SensorType, Reading, WeatherInfo, Activation
 
 
 class EnhancedJSONEncoder(json.JSONEncoder):

@@ -1,6 +1,6 @@
-from presentation.services import AreaService
+import pytest
 
-# Area
+from aep.presentation.services import AreaService
 from tests.presentation.service_generic import *
 from tests.util.fake import fake_area
 

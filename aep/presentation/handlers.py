@@ -1,7 +1,7 @@
 from aiohttp import web
 
 from di import Services
-from domain.serializers import json_to_area, json_to_sensor, json_to_reading, json_to_activation
+from aep.domain.serializers import json_to_area, json_to_sensor, json_to_reading, json_to_activation
 
 
 class GenericCrud:

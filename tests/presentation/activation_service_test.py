@@ -1,6 +1,6 @@
-from presentation.services import ActivationService
+import pytest
 
-# Area
+from aep.presentation.services import ActivationService
 from tests.presentation.service_generic import *
 from tests.util.fake import fake_activation
 

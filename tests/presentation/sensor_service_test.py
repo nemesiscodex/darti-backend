@@ -1,6 +1,6 @@
-from presentation.services import SensorService
+import pytest
 
-# Area
+from aep.presentation.services import SensorService
 from tests.presentation.service_generic import *
 from tests.util.fake import fake_sensor
 

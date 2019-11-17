@@ -1,7 +1,7 @@
 from asyncpg import Record
 
 import aep.data.db.postgres as db
-from domain.models import Area, Location, AreaType, Sensor, SensorType, Reading, WeatherInfo, Activation
+from aep.domain.models import Area, Location, AreaType, Sensor, SensorType, Reading, WeatherInfo, Activation
 
 
 def record_to_location(record: Record):

@@ -1,8 +1,8 @@
-from dependency_injector import containers, providers
+from aep.dependency_injector import containers, providers
 
-from data.datasources import AreaDatasource, SensorDatasource, ReadingDatasource, ActivationDatasource
-from data.repositories import AreaRepository, SensorRepository, ReadingRepository, ActivationRepository
-from presentation.services import AreaService, SensorService, ReadingService, ActivationService
+from aep.data.datasources import AreaDatasource, SensorDatasource, ReadingDatasource, ActivationDatasource
+from aep.data.repositories import AreaRepository, SensorRepository, ReadingRepository, ActivationRepository
+from aep.presentation.services import AreaService, SensorService, ReadingService, ActivationService
 
 
 class Datasources(containers.DeclarativeContainer):
