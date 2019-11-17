@@ -1,4 +1,4 @@
-from aep.dependency_injector import containers, providers
+from dependency_injector import containers, providers
 
 from aep.data.datasources import AreaDatasource, SensorDatasource, ReadingDatasource, ActivationDatasource
 from aep.data.repositories import AreaRepository, SensorRepository, ReadingRepository, ActivationRepository
@@ -10,6 +10,7 @@ class Datasources(containers.DeclarativeContainer):
     sensor = providers.Factory(SensorDatasource)
     reading = providers.Factory(ReadingDatasource)
     activation = providers.Factory(ActivationDatasource)
+
 
 class Repositories(containers.DeclarativeContainer):
     area = providers.Factory(AreaRepository, Datasources.area)

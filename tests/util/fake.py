@@ -31,6 +31,7 @@ def fake_sensor(identifier):
         area_identifier=r.randint(0, 10)
     )
 
+
 def fake_reading(identifier):
     r = Random()
     return Reading(
@@ -47,6 +48,7 @@ def fake_reading(identifier):
         timestamp=datetime.now(),
         location=fake_location()
     )
+
 
 def fake_activation(identifier):
     r = Random()

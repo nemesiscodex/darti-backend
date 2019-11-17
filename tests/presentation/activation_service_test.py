@@ -1,7 +1,8 @@
 import pytest
 
 from aep.presentation.services import ActivationService
-from tests.presentation.service_generic import *
+from tests.presentation.service_generic import generic_test_get, generic_test_all, generic_test_create, \
+    generic_test_update, generic_test_delete
 from tests.util.fake import fake_activation
 
 

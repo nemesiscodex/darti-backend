@@ -232,7 +232,8 @@ class ActivationDatasource:
                 await conn.execute("""
                 UPDATE activation set reading_identifier = $2, activation_count = $3, sensor_identifier = $4
                     where identifier = $1
-                """, activation.identifier, activation.reading_identifier, activation.activation_count, activation.sensor_identifier)
+                """, activation.identifier, activation.reading_identifier, activation.activation_count,
+                                   activation.sensor_identifier)
 
     async def delete(self, identifier):
         async with db.pool.acquire() as conn:
