@@ -79,7 +79,7 @@ class AreaDatasource:
         offset = page * elements
         print(page, elements, offset)
         async with db.pool.acquire() as conn:
-            areas = await conn.fetch("SELECT * FROM area limit $1 offset $2", elements, offset)
+            areas = await conn.fetch("SELECT * FROM area ORDER BY identifier DESC limit $1 offset $2", elements, offset)
 
             return list(map(record_to_area, areas))
 
@@ -123,7 +123,7 @@ class SensorDatasource:
         offset = page * elements
         print(page, elements, offset)
         async with db.pool.acquire() as conn:
-            sensors = await conn.fetch("SELECT * FROM sensor limit $1 offset $2", elements, offset)
+            sensors = await conn.fetch("SELECT * FROM sensor ORDER BY identifier DESC limit $1 offset $2", elements, offset)
             return list(map(record_to_sensor, sensors))
 
     async def update(self, sensor: Sensor):
@@ -173,7 +173,7 @@ class ReadingDatasource:
         offset = page * elements
         print(page, elements, offset)
         async with db.pool.acquire() as conn:
-            readings = await conn.fetch("SELECT * FROM reading limit $1 offset $2", elements, offset)
+            readings = await conn.fetch("SELECT * FROM reading ORDER BY identifier DESC limit $1 offset $2", elements, offset)
             return list(map(record_to_reading, readings))
 
     async def update(self, reading: Reading):
@@ -223,7 +223,7 @@ class ActivationDatasource:
         offset = page * elements
         print(page, elements, offset)
         async with db.pool.acquire() as conn:
-            activations = await conn.fetch("SELECT * FROM activation limit $1 offset $2", elements, offset)
+            activations = await conn.fetch("SELECT * FROM activation ORDER BY identifier DESC limit $1 offset $2", elements, offset)
             return list(map(record_to_activation, activations))
 
     async def update(self, activation: Activation):
