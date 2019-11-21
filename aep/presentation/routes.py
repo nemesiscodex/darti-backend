@@ -1,6 +1,6 @@
 from aiohttp import web
 
-from aep.presentation.handlers import area_crud, sensor_crud, reading_crud, activation_crud
+from aep.presentation.handlers import area_crud, sensor_crud, reading_crud, activation_crud, reading_range
 
 routes = [
     web.post('/areas', area_crud.create),
@@ -17,6 +17,7 @@ routes = [
 
     web.post('/readings', reading_crud.create),
     web.get('/readings', reading_crud.get_many),
+    web.get('/readings/range', reading_range),
     web.get(r'/readings/{identifier:\d+}', reading_crud.get),
     web.put(r'/readings/{identifier:\d+}', reading_crud.update),
     web.delete(r'/readings/{identifier:\d+}', reading_crud.delete),

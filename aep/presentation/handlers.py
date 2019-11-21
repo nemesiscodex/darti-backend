@@ -1,7 +1,7 @@
 from aiohttp import web
 
-from di import Services
 from aep.domain.serializers import json_to_area, json_to_sensor, json_to_reading, json_to_activation
+from di import Services
 
 
 class GenericCrud:
@@ -49,3 +49,13 @@ area_crud = GenericCrud(Services.area, json_to_area)
 sensor_crud = GenericCrud(Services.sensor, json_to_sensor)
 reading_crud = GenericCrud(Services.reading, json_to_reading)
 activation_crud = GenericCrud(Services.activation, json_to_activation)
+
+
+async def reading_range(request):
+    service = Services.reading()
+    # TODO: Format date
+    from_date = request.query.getone('from_date', None)
+    to_date = request.query.getone('to_date', None)
+
+    model = await service.all_range(from_date, to_date)
+    return web.json_response({"data": model})

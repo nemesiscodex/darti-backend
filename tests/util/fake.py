@@ -18,7 +18,7 @@ def fake_area(identifier):
         identifier=identifier,
         name="Area %s" % identifier,
         location=fake_location(),
-        area_type=AreaType(r.randint(1, 8))
+        area_type=AreaType(r.randint(0, 7))
     )
 
 
@@ -27,7 +27,7 @@ def fake_sensor(identifier):
     return Sensor(
         identifier=identifier,
         location=fake_location(),
-        sensor_type=SensorType.KISSING_BUG,
+        sensor_type=SensorType.KissingBug,
         area_identifier=r.randint(0, 10)
     )
 

@@ -1,7 +1,10 @@
+from datetime import datetime
+
 from asyncpg import Record
 
 import aep.data.db.postgres as db
-from aep.domain.models import Area, Location, AreaType, Sensor, SensorType, Reading, WeatherInfo, Activation
+from aep.domain.models import Area, Location, AreaType, Sensor, SensorType, Reading, WeatherInfo, Activation, \
+    WeatherInfoType
 
 
 def record_to_location(record: Record):
@@ -123,7 +126,8 @@ class SensorDatasource:
         offset = page * elements
         print(page, elements, offset)
         async with db.pool.acquire() as conn:
-            sensors = await conn.fetch("SELECT * FROM sensor ORDER BY identifier DESC limit $1 offset $2", elements, offset)
+            sensors = await conn.fetch("SELECT * FROM sensor ORDER BY identifier DESC limit $1 offset $2", elements,
+                                       offset)
             return list(map(record_to_sensor, sensors))
 
     async def update(self, sensor: Sensor):
@@ -173,7 +177,8 @@ class ReadingDatasource:
         offset = page * elements
         print(page, elements, offset)
         async with db.pool.acquire() as conn:
-            readings = await conn.fetch("SELECT * FROM reading ORDER BY identifier DESC limit $1 offset $2", elements, offset)
+            readings = await conn.fetch("SELECT * FROM reading ORDER BY timestamp DESC limit $1 offset $2", elements,
+                                        offset)
             return list(map(record_to_reading, readings))
 
     async def update(self, reading: Reading):
@@ -200,6 +205,31 @@ class ReadingDatasource:
                 DELETE FROM reading WHERE identifier = $1
                 """, identifier)
 
+    async def all_type(self, type: WeatherInfoType, from_date: datetime, to_date: datetime):
+        pass
+
+    async def all_range(self, from_date: datetime = None, to_date: datetime = None):
+
+        if to_date is None:
+            to_date = datetime.now()
+
+        to_date_where = "timestamp <= \'{0}\'".format(to_date.isoformat())
+        if from_date is None:
+            from_date_where = ""
+        else:
+            from_date_where = " and timestamp >= \'{0}\'".format(from_date.isoformat())
+
+        query = """
+                SELECT * FROM reading
+                WHERE {0}{1} ORDER BY timestamp DESC""".format(
+                    to_date_where, from_date_where)
+
+        print(query)
+
+        async with db.pool.acquire() as conn:
+            readings = await conn.fetch(query)
+            return list(map(record_to_reading, readings))
+
 
 class ActivationDatasource:
     async def get(self, identifier):
@@ -223,7 +253,8 @@ class ActivationDatasource:
         offset = page * elements
         print(page, elements, offset)
         async with db.pool.acquire() as conn:
-            activations = await conn.fetch("SELECT * FROM activation ORDER BY identifier DESC limit $1 offset $2", elements, offset)
+            activations = await conn.fetch("SELECT * FROM activation ORDER BY identifier DESC limit $1 offset $2",
+                                           elements, offset)
             return list(map(record_to_activation, activations))
 
     async def update(self, activation: Activation):

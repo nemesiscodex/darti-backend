@@ -4,6 +4,8 @@ from decimal import Decimal
 from enum import Enum
 from typing import Type
 
+from aep.utils import snake_case
+
 
 @dataclass
 class Location:
@@ -12,17 +14,7 @@ class Location:
 
 
 class AreaType(Enum):
-    HOUSE = 1
-    LOCATION = 2
-    VILLAGE = 3
-    TOWN = 4
-    CITY = 5
-    STATE = 6
-    REGION = 7
-    COUNTRY = 8
-
-    def default(self):
-        return self.name
+    House, Location, Village, Town, City, State, Region, Country = range(8)
 
 
 @dataclass
@@ -36,10 +28,7 @@ class Area:
 
 
 class SensorType(Enum):
-    KISSING_BUG = 1
-
-    def default(self):
-        return self.name
+    KissingBug, = range(1)
 
 
 @dataclass
@@ -49,6 +38,14 @@ class Sensor:
     sensor_type: SensorType
     area_identifier: int = None
     area: Area = None
+
+
+class WeatherInfoType(Enum):
+    WindDirection, WindVelocity, Rainfall, InteriorTemperature, \
+        ExteriorTemperature, Humidity, AtmosphericPressure = range(7)
+
+    def column(self):
+        return snake_case(self.name)
 
 
 @dataclass

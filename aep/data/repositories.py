@@ -1,4 +1,7 @@
+import datetime
 from abc import ABC
+
+from domain.models import WeatherInfoType
 
 
 class Repository(ABC):
@@ -30,7 +33,11 @@ class SensorRepository(Repository):
 
 
 class ReadingRepository(Repository):
-    pass
+    async def all_type(self, type: WeatherInfoType, from_date: datetime = None, to_date: datetime = None):
+        return await self.datasource.all_type(type, from_date, to_date)
+
+    async def all_range(self, from_date: datetime = None, to_date: datetime = None):
+        return await self.datasource.all_range(from_date, to_date)
 
 
 class ActivationRepository(Repository):

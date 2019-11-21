@@ -1,7 +1,9 @@
-from aep.domain.models import AreaType
+from datetime import datetime
+
+from aep.domain.models import AreaType, WeatherInfoType
 
 DEFAULT_PAGE_SIZE = 100
-MAX_PAGE_SIZE = 500
+MAX_PAGE_SIZE = 5000
 
 
 class Service:
@@ -50,7 +52,11 @@ class SensorService(Service):
 
 
 class ReadingService(Service):
-    pass
+    async def all_type(self, type: WeatherInfoType, from_date: datetime = None, to_date: datetime = None):
+        return await self.repository.all_type(type, from_date, to_date)
+
+    async def all_range(self, from_date: datetime = None, to_date: datetime = None):
+        return await self.repository.all_range(from_date, to_date)
 
 
 class ActivationService(Service):
