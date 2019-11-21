@@ -1,7 +1,7 @@
 import datetime
 from abc import ABC
 
-from domain.models import WeatherInfoType
+from aep.domain.models import WeatherInfoType
 
 
 class Repository(ABC):
