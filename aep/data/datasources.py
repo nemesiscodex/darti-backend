@@ -55,7 +55,8 @@ def record_to_activation(record: Record):
         identifier=record['identifier'],
         reading_identifier=record['reading_identifier'],
         activation_count=record['activation_count'],
-        sensor_identifier=record['sensor_identifier']
+        sensor_identifier=record['sensor_identifier'],
+        timestamp=record.get('timestamp', None)
     )
 
 
@@ -253,7 +254,9 @@ class ActivationDatasource:
         offset = page * elements
         print(page, elements, offset)
         async with db.pool.acquire() as conn:
-            activations = await conn.fetch("SELECT * FROM activation ORDER BY identifier DESC limit $1 offset $2",
+            activations = await conn.fetch("SELECT a.*, r.timestamp FROM activation a "
+                                           " JOIN reading r ON a.reading_identifier = r.identifier "
+                                           " ORDER BY a.identifier DESC limit $1 offset $2",
                                            elements, offset)
             return list(map(record_to_activation, activations))
 

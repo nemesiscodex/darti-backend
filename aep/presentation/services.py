@@ -3,7 +3,7 @@ from datetime import datetime
 from aep.domain.models import AreaType, WeatherInfoType
 
 DEFAULT_PAGE_SIZE = 100
-MAX_PAGE_SIZE = 5000
+MAX_PAGE_SIZE = 100000
 
 
 class Service:

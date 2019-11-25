@@ -73,5 +73,6 @@ class Activation:
     reading_identifier: int
     activation_count: int
     sensor_identifier: int
+    timestamp: datetime = None
     sensor: Sensor = None
     reading: Reading = None
