@@ -11,14 +11,13 @@ create table area
 	parent_area_identifier int
 );
 
-create index area_area_type_index
-	on area (area_type);
+create index area_area_type_index on area (area_type);
 
 create unique index area_identifier_uindex
-	on area (identifier);
+on area (identifier);
 
 create index area_parent_area_identifier_index
-	on area (parent_area_identifier);
+on area (parent_area_identifier);
 
 create table sensor
 (
@@ -33,13 +32,13 @@ create table sensor
 );
 
 create index sensor_area_identifier_index
-	on sensor (area_identifier);
+on sensor (area_identifier);
 
 create unique index sensor_identifier_uindex
-	on sensor (identifier);
+on sensor (identifier);
 
 create index sensor_sensor_type_index
-	on sensor (sensor_type);
+on sensor (sensor_type);
 
 create table reading
 (
@@ -60,10 +59,10 @@ create table reading
 );
 
 create unique index reading_identifier_uindex
-	on reading (identifier);
+on reading (identifier);
 
 create index reading_timestamp_index
-	on reading (timestamp desc);
+on reading (timestamp desc);
 
 create table activation
 (
@@ -77,11 +76,11 @@ create table activation
 );
 
 create unique index activation_identifier_uindex
-	on activation (identifier);
+on activation (identifier);
 
 create index activation_reading_identifier_index
-	on activation (reading_identifier);
+on activation (reading_identifier);
 
 create index activation_sensor_identifier_index
-	on activation (sensor_identifier);
+on activation (sensor_identifier);
 

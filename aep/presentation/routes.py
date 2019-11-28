@@ -1,5 +1,4 @@
 from aiohttp import web
-
 from aep.presentation.handlers import area_crud, sensor_crud, reading_crud, activation_crud, reading_range
 
 
@@ -38,3 +37,8 @@ routes = [
     web.put(r'/activations/{identifier:\d+}', cors(activation_crud.update)),
     web.delete(r'/activations/{identifier:\d+}', cors(activation_crud.delete))
 ]
+
+async def api(request):
+    return web.json_response({"endpoints": list(map(lambda x: {"endpoint": x.path, "method": x.method}, routes))})
+
+routes.append(web.get('/', api))

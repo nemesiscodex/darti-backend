@@ -2,6 +2,9 @@ from aiohttp import web
 
 from aep.domain.serializers import json_to_area, json_to_sensor, json_to_reading, json_to_activation
 from aep.di import Services
+from aep.data.db.redis import redis_pool
+import brotli
+import json
 
 
 class GenericCrud:
@@ -20,7 +23,24 @@ class GenericCrud:
         service = self.di()
         page = request.query.getone('page', None)
         elements = request.query.getone('elements', None)
-        return web.json_response({"data": await service.all(page, elements)})
+
+        url = str(request.url)
+
+        cached = await redis_pool.get(url)
+
+        if cached:
+            decompressed_bytes = brotli.decompress(cached)
+            response = web.Response(body=decompressed_bytes.decode('utf-8'), content_type='application/json')
+            response.enable_compression()
+            return response
+        data = json.dumps({'data': await service.all(page, elements)})
+
+        compressed_data = brotli.compress(data.encode('utf-8'))
+        # await redis_pool.set(url, codecs.encode(data.encode('utf-8'), 'gzip'), expire=86400)
+        await redis_pool.set(url, compressed_data, expire=86400)
+        response = web.Response(body=data, content_type='application/json')
+        response.enable_compression()
+        return response
 
     async def update(self, request):
         service = self.di()

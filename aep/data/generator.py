@@ -3,8 +3,8 @@ from datetime import datetime, timedelta
 from decimal import Decimal
 from random import Random
 
-from di import Datasources
-from domain.models import Reading, Activation, Location, WeatherInfo
+from aep.di import Datasources
+from aep.domain.models import Reading, Activation, Location, WeatherInfo
 
 
 async def generate_reading(date: datetime, location: Location, old_reading: Reading = None,
