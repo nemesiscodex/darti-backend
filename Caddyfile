@@ -1,0 +1,19 @@
+backend.nemesiscodex.io:443 {
+  push
+  browse
+  log    /var/log/access.log
+  proxy  / localhost:8888
+  header / Access-Control-Allow-Origin *
+  tls self_signed
+}
+
+frontend.nemesiscodex.io:443 {
+  push
+  cache
+  gzip
+  browse
+  log    /var/log/access.log
+  proxy  / localhost:3000
+  header / Access-Control-Allow-Origin *
+  tls self_signed
+}

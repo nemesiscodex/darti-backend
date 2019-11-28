@@ -1,15 +1,15 @@
 import asyncio
-
+import os
 import asyncpg
 # Settings
 from asyncpg.pool import Pool
 
 DB = {
-    "host": "localhost",
-    "port": 5432,
-    "database": "aep",
-    "username": "aep",
-    "password": "aep"
+    "host": os.environ.get('DB_HOST', "localhost"),
+    "port":  int(os.environ.get('DB_PORT', 5432)),
+    "database": os.environ.get('DB_SCHEMA', "aep"),
+    "username": os.environ.get('DB_USERNAME', "aep"),
+    "password": os.environ.get('DB_PASSWORD', "aep")
 }
 
 

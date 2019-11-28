@@ -11,5 +11,20 @@ services:
       - 5432:5432
     volumes:
       - postgresdb:/var/lib/postgresql/data
+  app:
+    build: .
+    restart: always
+    ports:
+      - 8888:8888
+    environment:
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_SCHEMA=aep
+      - DB_USERNAME=aep
+      - DB_PASSWORD=aep
+    links:
+      - postgres
+
+
 volumes:
   postgresdb:
