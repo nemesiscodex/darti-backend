@@ -63,6 +63,9 @@ def json_to_area(json_object: dict):
 
 
 def json_to_sensor(json_object: dict):
+    area_identifier = json_object.get('areaIdentifier', None)
+    if not area_identifier:
+        area_identifier = None
     return Sensor(
         identifier=int(json_object['identifier']),
         location=Location(
@@ -70,7 +73,7 @@ def json_to_sensor(json_object: dict):
             longitude=json_object['location']['longitude']
         ),
         sensor_type=SensorType[json_object['sensorType']],
-        area_identifier=json_object.get('areaIdentifier', None)
+        area_identifier=area_identifier
     )
 
 

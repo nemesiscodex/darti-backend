@@ -2,7 +2,7 @@ from aiohttp import web
 
 from aep.domain.serializers import json_to_area, json_to_sensor, json_to_reading, json_to_activation
 from aep.di import Services
-from aep.data.db.redis import redis_pool
+from aep.data.db.redis import redis_pool, delete_keys
 import brotli
 import json
 
@@ -17,6 +17,7 @@ class GenericCrud:
         json_object = await request.json()
         model = self.deserializer(json_object)
         await service.create(model)
+        await delete_keys(str(request.url) + "*")
         return web.json_response({"success": True})
 
     async def get_many(self, request):
