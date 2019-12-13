@@ -1,8 +1,13 @@
-Darti Backend
+Darti Backend (WIP)
 ======
+### Demos
+- [Backend](https://backend-darti.apps.ca-central-1.starter.openshift-online.com/) ([repo](github.com/nemesiscodex/darti-backend))
+    - Basic crud with test data + pagination
+- [Frontend](https://frontend-darti.apps.ca-central-1.starter.openshift-online.com/) ([repo](github.com/nemesiscodex/darti-frontend))
+    - Charts + Sensor List/Create
 
 ## Architecture
-![architecture](https://user-images.githubusercontent.com/3976562/70764552-a6acbf80-1d36-11ea-907a-626d017cd5de.png)
+<img src="https://user-images.githubusercontent.com/3976562/70764552-a6acbf80-1d36-11ea-907a-626d017cd5de.png" width="300" alt="architecture">
 
 #### Backend stack
 - Python 3.7
@@ -13,7 +18,8 @@ Darti Backend
 - aioredis
 
 ## Basic data model
-![Data model](https://user-images.githubusercontent.com/3976562/70762245-af00fc80-1d2e-11ea-8b59-6a18d3bffe6d.png)
+<img src="https://user-images.githubusercontent.com/3976562/70762245-af00fc80-1d2e-11ea-8b59-6a18d3bffe6d.png" alt="Data model" width="300" />
+
 - **Area**: A named area in a map. A polygon defined by a list of points with GPS coordinates.
 - **Sensor**: Sensor with a type, an identifier and GPS coordinates.
 - **Activation**: It represents the activation count of a Sensor in a specific reading instance.
