@@ -300,3 +300,5 @@ dmypy.json
 .pyre/
 
 # End of https://www.gitignore.io/api/python,intellij,intellij+all,intellij+iml
+
+venv/

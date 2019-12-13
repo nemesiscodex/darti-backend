@@ -5,8 +5,27 @@ Darti Backend (WIP)
     - Basic crud with test data + pagination
 - [Frontend](https://frontend-darti.apps.ca-central-1.starter.openshift-online.com/) ([repo](https://github.com/nemesiscodex/darti-frontend))
     - Charts + Sensor List/Create
+### Usage
+Install postgres and redis or run them locally docker/docker-compose:
+```bash
+docker-compose -d postgres redis
+```
+- Database configuration is in `aep/data/db/postgres.py` and the initial sql is in `sql/database.sql`
+- Redis configuration is in `aep/data/db/redis.py`
+```bash
+virtualenv -p /usr/bin/python3.7 venv
+source ./venv/bin/activate
+pip install -r requirements.txt
+python -m aep.app
+```
+The backend will be available at http://localhost:8888/
 
-## Architecture
+To run tests:
+```bash
+pytest
+```
+
+### Architecture
 <img src="https://user-images.githubusercontent.com/3976562/70764552-a6acbf80-1d36-11ea-907a-626d017cd5de.png" width="300" alt="architecture">
 
 #### Backend stack
@@ -17,13 +36,24 @@ Darti Backend (WIP)
 - asyncpg
 - aioredis
 
-## Basic data model
+#### Basic data model
 <img src="https://user-images.githubusercontent.com/3976562/70762245-af00fc80-1d2e-11ea-8b59-6a18d3bffe6d.png" alt="Data model" width="300" />
 
 - **Area**: A named area in a map. A polygon defined by a list of points with GPS coordinates.
 - **Sensor**: Sensor with a type, an identifier and GPS coordinates.
 - **Activation**: It represents the activation count of a Sensor in a specific reading instance.
 - **Reading**: A reading represents the state of the sensor network in a specific moment in time. It also contains weather information, the system status and GPS coordinates.
+
+#### Roadmap
+- [ ] User Authentication + Roles and permissions.
+- [ ] PostGIS integration for `Area` polygons in crud + query sensors by Area. 
+- [ ] Better pagination.
+- [ ] Improve filtering for reports.
+    - [ ] Activations by Sensor per month/day and Area
+    - [ ] Aggregate Activations per month/day and Area
+    - [ ] Aggregate weather info per month/day and Area
+- [ ] API Docs (swagger?).
+- [ ] Improve caching mechanism.
 
 ## About the project
 ### Chagas Disease
