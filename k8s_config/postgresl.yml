@@ -1,0 +1,41 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: postgres
+  namespace: darti
+  labels:
+    db: postgres
+spec:
+  restartPolicy: Always
+  containers:
+    - name: postgresql
+      env:
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: postgresql
+              key: database-user
+        - name: POSTGRES_DB
+          valueFrom:
+            secretKeyRef:
+              name: postgresql
+              key: database-name
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgresql
+              key: database-password
+        - name: PGDATA
+          value: /var/lib/postgresql/data/pgdata
+      ports:
+        - containerPort: 5432
+          protocol: TCP
+      imagePullPolicy: IfNotPresent
+      volumeMounts:
+        - name: postgres-data
+          mountPath: /var/lib/postgresql/data
+      image: 'postgres:11-alpine'
+  volumes:
+    - name: postgres-data
+      persistentVolumeClaim:
+        claimName: postgresql

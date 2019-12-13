@@ -1,0 +1,19 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: darti-redis
+  namespace: darti
+  labels:
+    db: darti-redis
+spec:
+  restartPolicy: Always
+  containers:
+    - name: darti-redis
+      resources:
+        limits:
+          cpu: '1'
+          memory: 512Mi
+      ports:
+        - containerPort: 6379
+          protocol: TCP
+      image: 'redis:5.0.7-alpine'

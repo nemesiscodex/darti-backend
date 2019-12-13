@@ -1,0 +1,42 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: darti-backend
+  namespace: darti
+  labels:
+    app: darti-backend
+spec:
+  restartPolicy: Always
+  containers:
+    - name: darti-backend
+      resources:
+        limits:
+          cpu: '1'
+          memory: 256Mi
+      env:
+        - name: REDIS_HOST
+          value: redis://ip-172-30-62-254.ca-central-1.compute.internal
+        - name: DB_PORT
+          value: "5432"
+        - name: DB_HOST
+          value: ip-172-30-140-135.ca-central-1.compute.internal
+        - name: DB_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: postgresql
+              key: database-user
+        - name: DB_SCHEMA
+          valueFrom:
+            secretKeyRef:
+              name: postgresql
+              key: database-name
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgresql
+              key: database-password
+      ports:
+        - containerPort: 8888
+          protocol: TCP
+      image: 'nemesiscodex/darti-backend:latest'
+  serviceAccount: default

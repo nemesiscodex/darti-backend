@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: darti-frontend
+  labels:
+    app: darti-frontend
+  namespace: darti
+spec:
+  containers:
+    - name: darti-frontend
+      image: nemesiscodex/darti-frontend:latest
+      ports:
+        - containerPort: 3000
+      env:
+        - name: REACT_APP_BACKEND_URL
+          value: https://backend-darti.apps.ca-central-1.starter.openshift-online.com

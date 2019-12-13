@@ -1,0 +1,35 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: darti-proxy
+  namespace: darti
+  labels:
+    app: darti-proxy
+spec:
+  restartPolicy: Always
+  containers:
+    - name: darti-proxy
+      resources:
+        limits:
+          cpu: '1'
+          memory: 256Mi
+      env:
+        - name: TLS_CONFIG
+          value: ""
+        - name: FRONTEND_PROXY
+          value: frontend-darti.apps.ca-central-1.starter.openshift-online.com
+        - name: BACKEND_PROXY
+          value: backend-darti.apps.ca-central-1.starter.openshift-online.com
+        - name: BACKEND_INTERNAL
+          value: http://ip-172-30-110-203.ca-central-1.compute.internal
+        - name: BACKEND_INTERNAL_PORT
+          value: "80"
+        - name: FRONTEND_INTERNAL
+          value: http://ip-172-30-245-97.ca-central-1.compute.internal
+        - name: FRONTEND_INTERNAL_PORT
+          value: "80"
+      ports:
+        - containerPort: 443
+          protocol: TCP
+      image: 'nemesiscodex/caddy-darti-proxy:latest'
+  serviceAccount: default
