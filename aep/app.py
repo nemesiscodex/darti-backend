@@ -2,6 +2,9 @@ if __name__ == '__main__':
     from aiohttp import web
     from aep.presentation.routes import routes
     import aiohttp_cors
+    from aep.migrations import migrate
+
+    migrate()
 
     app = web.Application()
     app.add_routes(routes)

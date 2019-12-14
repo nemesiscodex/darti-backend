@@ -10,18 +10,27 @@ Install postgres and redis or run them locally docker/docker-compose:
 ```bash
 docker-compose -d postgres redis
 ```
-- Database configuration is in `aep/data/db/postgres.py` and the initial sql is in `sql/database.sql`
-- Redis configuration is in `aep/data/db/redis.py`
+- Postgres and Redis configurations are in `aep/settings.py`
+- DB migration files are in `aep/migrations/`
+
+Install dependencies (on Ubuntu):
+```
+sudo apt-get update && sudo apt-get install -y build-essential libpq-dev
+```
+Python dependencies:
 ```bash
 virtualenv -p /usr/bin/python3.7 venv
 source ./venv/bin/activate
 pip install -r requirements.txt
+```
+Run app:
+```
 python -m aep.app
 ```
 The backend will be available at http://localhost:8888/
 
 To run tests:
-```bash
+```
 pytest
 ```
 
@@ -54,6 +63,7 @@ pytest
     - [ ] Aggregate weather info per month/day and Area
 - [ ] API Docs (swagger?).
 - [ ] Improve caching mechanism.
+- [ ] Database migration tool that doesn't use `psycopg2`
 
 ## About the project
 ### Chagas Disease
